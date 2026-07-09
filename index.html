@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetailHub - Inventory, Sales & E-Commerce Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Admin Login Modal -->
+    <div id="loginModal" class="modal active">
+        <div class="modal-content login-modal">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-store"></i>
+                    <h2>RetailHub Admin</h2>
+                </div>
+                <p>Please login to access the management system</p>
+            </div>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" required placeholder="Enter username" value="admin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" required placeholder="Enter password" value="admin123">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login to Dashboard
+                </button>
+                <div class="login-footer">
+                    <p class="demo-credentials">
+                        <strong>Demo Credentials:</strong><br>
+                        Username: admin | Password: admin123
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application (Hidden until login) -->
+    <div id="mainApp" style="display: none;">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                <span>RetailHub</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+                <a href="#inventory" class="nav-item" data-section="inventory">
+                    <i class="fas fa-boxes"></i>
+                    Inventory
+                </a>
+                <a href="#sales" class="nav-item" data-section="sales">
+                    <i class="fas fa-dollar-sign"></i>
+                    Sales
+                </a>
+                <a href="#ecommerce" class="nav-item" data-section="ecommerce">
+                    <i class="fas fa-shopping-cart"></i>
+                    E-Commerce
+                </a>
+                <a href="#analytics" class="nav-item" data-section="analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+            </nav>
+            <div class="header-actions">
+                <button class="notification-btn" onclick="openNotificationPanel()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" style="display: none;">0</span>
+                </button>
+                <div class="user-profile">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Admin Profile" class="profile-img" style="border-radius: 50%; object-fit: cover; width: 40px; height: 40px;">
+                    <span class="username">Admin</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h1>Dashboard Overview</h1>
+                <div class="date-filter">
+                    <select id="dateRange">
+                        <option value="today">Today</option>
+                        <option value="week" selected>This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Enhanced KPI Cards with BDT Currency -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon revenue">
+                        <i class="fas fa-bangladeshi-taka-sign"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Revenue</h3>
+                        <p class="kpi-value">৳2,45,67,890</p>
+                        <span class="kpi-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon orders">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Total Orders</h3>
+                        <p class="kpi-value">1,234</p>
+                        <span class="kpi-change positive">+8.3%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon inventory">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Products in Stock</h3>
+                        <p class="kpi-value">5,678</p>
+                        <span class="kpi-change negative">-2.1%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon customers">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Active Customers</h3>
+                        <p class="kpi-value">892</p>
+                        <span class="kpi-change positive">+15.7%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon profit">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Net Profit</h3>
+                        <p class="kpi-value">৳45,67,234</p>
+                        <span class="kpi-change positive">+18.6%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon conversion">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Conversion Rate</h3>
+                        <p class="kpi-value">3.45%</p>
+                        <span class="kpi-change positive">+0.8%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon avg-order">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Avg Order Value</h3>
+                        <p class="kpi-value">৳1,890</p>
+                        <span class="kpi-change positive">+5.2%</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon returns">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3>Return Rate</h3>
+                        <p class="kpi-value">2.1%</p>
+                        <span class="kpi-change negative">+0.3%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Dashboard Grid with More Features -->
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <h3>Sales Trend (BDT)</h3>
+                    <div class="chart-placeholder">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div class="activity-content">
+                                <p>New order #ORD-2024-1234 - ৳2,450</p>
+                                <span class="activity-time">2 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-box"></i>
+                            <div class="activity-content">
+                                <p>Product "Samsung Galaxy A54" restocked (50 units)</p>
+                                <span class="activity-time">15 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-user-plus"></i>
+                            <div class="activity-content">
+                                <p>New customer "Rahul Ahmed" registered</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-truck"></i>
+                            <div class="activity-content">
+                                <p>Order #ORD-2024-1230 shipped to Dhaka</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div class="activity-content">
+                                <p>Low stock alert: iPhone 15 Pro (5 units left)</p>
+                                <span class="activity-time">3 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Dashboard Sections -->
+            <div class="dashboard-extended">
+                <!-- Top Products Section -->
+                <div class="top-products-section">
+                    <h3><i class="fas fa-trophy"></i> Top Selling Products</h3>
+                    <div class="top-products-grid">
+                        <div class="product-card">
+                            <img src="https://via.placeholder.com/80x80" alt="Product">
+                            <div class="product-info">
+                                <h4>Samsung Galaxy A54</h4>
+                                <p class="product-sales">156 sold</p>
+                                <p class="product-revenue">৳4,68,000</p>
+                            </div>
+                            <div class="product-trend">
+                                <i class="fas fa-arrow-up text-green-500"></i>
+                                <span>+23%</span>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://via.placeholder.com/80x80" alt="Product">
+                            <div class="product-info">
+                                <h4>iPhone 15 Pro</h4>
+                                <p class="product-sales">89 sold</p>
+                                <p class="product-revenue">৳8,90,000</p>
+                            </div>
+                            <div class="product-trend">
+                                <i class="fas fa-arrow-up text-green-500"></i>
+                                <span>+18%</span>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://via.placeholder.com/80x80" alt="Product">
+                            <div class="product-info">
+                                <h4>MacBook Air M2</h4>
+                                <p class="product-sales">45 sold</p>
+                                <p class="product-revenue">৳5,40,000</p>
+                            </div>
+                            <div class="product-trend">
+                                <i class="fas fa-arrow-down text-red-500"></i>
+                                <span>-5%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales by Region -->
+                <div class="sales-region-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Sales by Region</h3>
+                    <div class="region-stats">
+                        <div class="region-item">
+                            <div class="region-info">
+                                <h4>Dhaka Division</h4>
+                                <p class="region-percentage">45.2%</p>
+                            </div>
+                            <div class="region-amount">৳1,10,45,230</div>
+                            <div class="region-bar">
+                                <div class="region-progress" style="width: 45.2%"></div>
+                            </div>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-info">
+                                <h4>Chittagong Division</h4>
+                                <p class="region-percentage">28.7%</p>
+                            </div>
+                            <div class="region-amount">৳70,23,450</div>
+                            <div class="region-bar">
+                                <div class="region-progress" style="width: 28.7%"></div>
+                            </div>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-info">
+                                <h4>Sylhet Division</h4>
+                                <p class="region-percentage">15.8%</p>
+                            </div>
+                            <div class="region-amount">৳38,67,890</div>
+                            <div class="region-bar">
+                                <div class="region-progress" style="width: 15.8%"></div>
+                            </div>
+                        </div>
+                        <div class="region-item">
+                            <div class="region-info">
+                                <h4>Other Divisions</h4>
+                                <p class="region-percentage">10.3%</p>
+                            </div>
+                            <div class="region-amount">৳25,31,320</div>
+                            <div class="region-bar">
+                                <div class="region-progress" style="width: 10.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-section">
+                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn" onclick="openAddProductModal()">
+                            <i class="fas fa-plus"></i>
+                            <span>Add Product</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="generateReport()">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Generate Report</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="viewLowStock()">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Low Stock Alert</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="exportData()">
+                            <i class="fas fa-download"></i>
+                            <span>Export Data</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="viewPendingOrders()">
+                            <i class="fas fa-clock"></i>
+                            <span>Pending Orders</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="customerSupport()">
+                            <i class="fas fa-headset"></i>
+                            <span>Support Tickets</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="performance-metrics">
+                    <h3><i class="fas fa-chart-bar"></i> Performance Metrics</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Page Views</h4>
+                                <p class="metric-value">45,678</p>
+                                <span class="metric-change positive">+12.3%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Click Rate</h4>
+                                <p class="metric-value">8.45%</p>
+                                <span class="metric-change positive">+2.1%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Cart Abandonment</h4>
+                                <p class="metric-value">23.4%</p>
+                                <span class="metric-change negative">+1.2%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h4>Avg Rating</h4>
+                                <p class="metric-value">4.7/5</p>
+                                <span class="metric-change positive">+0.2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Inventory Section -->
+        <section id="inventory" class="content-section">
+            <div class="section-header">
+                <h1><i class="fas fa-boxes"></i> Inventory Management</h1>
+                <div class="header-actions">
+                    <button id="addProductBtn" class="btn btn-primary" onclick="openAddProductModal()">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                    <button id="bulkAddBtn" class="btn btn-outline" onclick="openBulkAddModal()">
+                        <i class="fas fa-layer-group"></i> Bulk Add
+                    </button>
+                    <button id="importBtn" class="btn btn-outline" onclick="importProducts()">
+                        <i class="fas fa-upload"></i> Import CSV
+                    </button>
+                    <button id="exportBtn" class="btn btn-outline" onclick="exportProducts()">
+                        <i class="fas fa-download"></i> Export All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inventory Summary Cards -->
+            <div class="inventory-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3 id="totalProducts">0</h3>
+                        <p>Total Products</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3 id="inStockProducts">0</h3>
+                        <p>In Stock</p>
+                    </div>
+                </div>
+                <div class="summary-card warning">
+                    <div class="summary-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3 id="lowStockProducts">0</h3>
+                        <p>Low Stock</p>
+                    </div>
+                </div>
+                <div class="summary-card danger">
+                    <div class="summary-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3 id="outOfStockProducts">0</h3>
+                        <p>Out of Stock</p>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3 id="totalInventoryValue">৳0</h3>
+                        <p>Total Value (BDT)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventory-controls">
+                <div class="search-filter">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="productSearch" placeholder="Search by name, SKU, or barcode...">
+                    </div>
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="home">Home & Garden</option>
+                        <option value="sports">Sports</option>
+                        <option value="health">Health & Beauty</option>
+                    </select>
+                    <select id="stockFilter">
+                        <option value="">All Stock Levels</option>
+                        <option value="in-stock">In Stock (>10)</option>
+                        <option value="low-stock">Low Stock (1-10)</option>
+                        <option value="out-of-stock">Out of Stock (0)</option>
+                    </select>
+                    <select id="priceFilter">
+                        <option value="">All Price Ranges</option>
+                        <option value="0-5000">৳0 - ৳5,000</option>
+                        <option value="5000-20000">৳5,000 - ৳20,000</option>
+                        <option value="20000-50000">৳20,000 - ৳50,000</option>
+                        <option value="50000+">৳50,000+</option>
+                    </select>
+                </div>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="table" onclick="switchView('table')">
+                        <i class="fas fa-table"></i>
+                    </button>
+                    <button class="view-btn" data-view="grid" onclick="switchView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list" onclick="switchView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bulk-actions-bar" id="bulkActionsBar" style="display: none;">
+                <div class="selected-count">
+                    <span id="selectedCount">0</span> items selected
+                </div>
+                <div class="bulk-buttons">
+                    <button class="btn btn-outline" onclick="bulkEditProducts()">
+                        <i class="fas fa-edit"></i> Bulk Edit
+                    </button>
+                    <button class="btn btn-outline" onclick="bulkUpdateStock()">
+                        <i class="fas fa-boxes"></i> Update Stock
+                    </button>
+                    <button class="btn btn-outline" onclick="bulkUpdatePrices()">
+                        <i class="fas fa-tags"></i> Update Prices
+                    </button>
+                    <button class="btn btn-danger" onclick="bulkDeleteProducts()">
+                        <i class="fas fa-trash"></i> Delete Selected
+                    </button>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAllHeader">
+                            </th>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Stock</th>
+                            <th>Cost Price</th>
+                            <th>Sell Price</th>
+                            <th>Profit</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <!-- Table rows will be dynamically generated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Enhanced Sales Section -->
+        <section id="sales" class="content-section">
+            <div class="section-header">
+                <h1>Sales Management</h1>
+                <div class="section-actions">
+                    <button class="btn btn-primary" id="newSaleBtn" onclick="openNewSaleModal()">
+                        <i class="fas fa-plus"></i>
+                        New Sale
+                    </button>
+                    <button class="btn btn-success" id="addProductToSaleBtn" onclick="openAddProductToSaleModal()">
+                        <i class="fas fa-box"></i>
+                        Add Product
+                    </button>
+                    <button class="btn btn-secondary" id="exportSalesBtn" onclick="exportSalesData()">
+                        <i class="fas fa-download"></i>
+                        Export Sales
+                    </button>
+                    <button class="btn btn-outline" id="printReceiptBtn" onclick="printLastReceipt()">
+                        <i class="fas fa-print"></i>
+                        Print Receipt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Enhanced Sales Summary with BDT -->
+            <div class="sales-summary">
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Today's Sales</h3>
+                        <p class="summary-value">৳85,450</p>
+                        <span class="summary-orders">23 orders</span>
+                        <div class="summary-trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12.5%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>This Week</h3>
+                        <p class="summary-value">৳5,67,890</p>
+                        <span class="summary-orders">156 orders</span>
+                        <div class="summary-trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+8.7%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>This Month</h3>
+                        <p class="summary-value">৳24,56,780</p>
+                        <span class="summary-orders">678 orders</span>
+                        <div class="summary-trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+15.3%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Average Order</h3>
+                        <p class="summary-value">৳3,620</p>
+                        <span class="summary-orders">per order</span>
+                        <div class="summary-trend positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+5.2%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Filters and Search -->
+            <div class="sales-filters">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search orders by ID, customer name..." id="salesSearch">
+                </div>
+                <select id="salesStatusFilter">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="refunded">Refunded</option>
+                </select>
+                <select id="salesDateFilter">
+                    <option value="today">Today</option>
+                    <option value="week" selected>This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+                <select id="salesPaymentFilter">
+                    <option value="">All Payment Methods</option>
+                    <option value="cash">Cash</option>
+                    <option value="card">Card</option>
+                    <option value="bkash">bKash</option>
+                    <option value="nagad">Nagad</option>
+                    <option value="rocket">Rocket</option>
+                </select>
+            </div>
+
+            <!-- Enhanced Order Management -->
+            <div class="orders-section">
+                <div class="orders-header">
+                    <h3>Order Management</h3>
+                    <div class="orders-actions">
+                        <button class="btn btn-primary" onclick="openNewOrderModal()">
+                            <i class="fas fa-plus"></i>
+                            New Order
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportOrders()">
+                            <i class="fas fa-download"></i>
+                            Export Orders
+                        </button>
+                        <button class="btn btn-secondary" onclick="printOrdersReport()">
+                            <i class="fas fa-print"></i>
+                            Print Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Status Summary -->
+                <div class="order-status-summary">
+                    <div class="status-card pending">
+                        <div class="status-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="status-content">
+                            <h4 id="pendingOrdersCount">12</h4>
+                            <p>Pending Orders</p>
+                            <span class="status-value" id="pendingOrdersValue">৳1,45,680</span>
+                        </div>
+                    </div>
+                    <div class="status-card processing">
+                        <div class="status-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="status-content">
+                            <h4 id="processingOrdersCount">8</h4>
+                            <p>Processing</p>
+                            <span class="status-value" id="processingOrdersValue">৳89,340</span>
+                        </div>
+                    </div>
+                    <div class="status-card shipping">
+                        <div class="status-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="status-content">
+                            <h4 id="shippingOrdersCount">15</h4>
+                            <p>Shipping</p>
+                            <span class="status-value" id="shippingOrdersValue">৳2,34,560</span>
+                        </div>
+                    </div>
+                    <div class="status-card delivered">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="status-content">
+                            <h4 id="deliveredOrdersCount">45</h4>
+                            <p>Delivered</p>
+                            <span class="status-value" id="deliveredOrdersValue">৳5,67,890</span>
+                        </div>
+                    </div>
+                    <div class="status-card cancelled">
+                        <div class="status-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="status-content">
+                            <h4 id="cancelledOrdersCount">3</h4>
+                            <p>Cancelled</p>
+                            <span class="status-value" id="cancelledOrdersValue">৳12,450</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Filters -->
+                <div class="order-filters">
+                    <div class="filter-group">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search by order ID, customer name, phone..." id="orderSearch">
+                        </div>
+                        <select id="orderStatusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipping">Shipping</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                        <select id="orderDateFilter">
+                            <option value="">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                        <select id="orderPaymentFilter">
+                            <option value="">All Payment Methods</option>
+                            <option value="cash">Cash on Delivery</option>
+                            <option value="bkash">bKash</option>
+                            <option value="nagad">Nagad</option>
+                            <option value="rocket">Rocket</option>
+                            <option value="card">Credit/Debit Card</option>
+                        </select>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="table" onclick="setOrderView('table')">
+                            <i class="fas fa-table"></i>
+                        </button>
+                        <button class="view-btn" data-view="cards" onclick="setOrderView('cards')">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bulk Actions Bar -->
+                <div class="bulk-actions-bar" id="orderBulkActions" style="display: none;">
+                    <div class="selected-count">
+                        <span id="selectedOrdersCount">0</span> orders selected
+                    </div>
+                    <div class="bulk-buttons">
+                        <button class="btn btn-sm btn-primary" onclick="bulkUpdateOrderStatus()">
+                            <i class="fas fa-edit"></i>
+                            Update Status
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="bulkPrintOrders()">
+                            <i class="fas fa-print"></i>
+                            Print Selected
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="bulkExportOrders()">
+                            <i class="fas fa-download"></i>
+                            Export Selected
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="bulkCancelOrders()">
+                            <i class="fas fa-times"></i>
+                            Cancel Orders
+                        </button>
+                    </div>
+                </div>
+                <!-- Orders Table -->
+                <div class="table-container" id="ordersTableView">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAllOrders" onchange="toggleAllOrders(this)">
+                                </th>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date & Time</th>
+                                <th>Items</th>
+                                <th>Payment Method</th>
+                                <th>Total (BDT)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Orders Cards View -->
+                <div class="orders-cards" id="ordersCardsView" style="display: none;">
+                    <!-- Order cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Showing <span id="ordersShowingStart">1</span>-<span id="ordersShowingEnd">10</span> of <span id="ordersTotalCount">156</span> orders
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm" id="ordersPrevPage" onclick="changeOrdersPage(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-numbers" id="ordersPageNumbers">
+                            <!-- Page numbers will be generated by JavaScript -->
+                        </span>
+                        <button class="btn btn-sm" id="ordersNextPage" onclick="changeOrdersPage(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Sales Table (existing content continues) -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date & Time</th>
+                            <th>Items</th>
+                            <th>Payment</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesTableBody">
+                        <tr>
+                            <td>
+                                <div class="order-id">
+                                    <strong>#ORD-2024-1234</strong>
+                                    <span class="order-type">Online</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="customer-info">
+                                        <strong>Rahul Ahmed</strong>
+                                        <span class="customer-phone">+880 1712-345678</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-time">
+                                        <span class="date">Aug 15, 2024</span>
+                                        <span class="time">2:30 PM</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="items-info">
+                                        <span class="item-count">3 items</span>
+                                        <span class="item-preview">Samsung Galaxy A54, Nike Shoes...</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="payment-method">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <span>Card</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="total-amount">
+                                        <strong>৳62,450</strong>
+                                        <span class="discount">-৳2,550 (4%)</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge delivered">Delivered</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="View Details" onclick="viewOrder('ORD-2024-1234')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Print Receipt" onclick="printReceipt('ORD-2024-1234')">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Track Order" onclick="trackOrder('ORD-2024-1234')">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="order-id">
+                                        <strong>#ORD-2024-1235</strong>
+                                        <span class="order-type">In-Store</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <strong>Fatima Khan</strong>
+                                        <span class="customer-phone">+880 1987-654321</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-time">
+                                        <span class="date">Aug 15, 2024</span>
+                                        <span class="time">11:45 AM</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="items-info">
+                                        <span class="item-count">1 item</span>
+                                        <span class="item-preview">Apple Watch Series 9</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="payment-method">
+                                        <i class="fas fa-mobile-alt text-pink-500"></i>
+                                        <span>bKash</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="total-amount">
+                                        <strong>৳42,000</strong>
+                                        <span class="no-discount">No discount</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge processing">Processing</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="View Details" onclick="viewOrder('ORD-2024-1235')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Print Receipt" onclick="printReceipt('ORD-2024-1235')">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Update Status" onclick="updateOrderStatus('ORD-2024-1235')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="order-id">
+                                        <strong>#ORD-2024-1236</strong>
+                                        <span class="order-type">Online</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="customer-info">
+                                        <strong>Mohammad Hassan</strong>
+                                        <span class="customer-phone">+880 1555-123456</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="date-time">
+                                        <span class="date">Aug 14, 2024</span>
+                                        <span class="time">6:20 PM</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="items-info">
+                                        <span class="item-count">2 items</span>
+                                        <span class="item-preview">Dell Laptop, Wireless Headphones</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="payment-method">
+                                        <i class="fas fa-money-bill-wave text-green-500"></i>
+                                        <span>Cash on Delivery</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="total-amount">
+                                        <strong>৳77,500</strong>
+                                        <span class="discount">-৳7,500 (10%)</span>
+                                    </div>
+                                </td>
+                                <td><span class="status-badge shipped">Shipped</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="View Details" onclick="viewOrder('ORD-2024-1236')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Print Receipt" onclick="printReceipt('ORD-2024-1236')">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Track Order" onclick="trackOrder('ORD-2024-1236')">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sales Analytics Section -->
+        </section>
+
+        <!-- E-Commerce Section -->
+        <section id="ecommerce" class="content-section">
+            <div class="section-header">
+                <h1><i class="fas fa-store"></i> E-Commerce Management</h1>
+                <div class="section-actions">
+                    <button class="btn btn-primary" onclick="openAddProductModal()">
+                        <i class="fas fa-plus"></i>
+                        Add New Product
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportCatalog()">
+                        <i class="fas fa-download"></i>
+                        Export Catalog
+                    </button>
+                </div>
+            </div>
+
+            <!-- E-Commerce Stats -->
+            <div class="ecommerce-stats">
+                <div class="stat-card">
+                    <div class="stat-icon products">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>2,847</h3>
+                        <p>Total Products</p>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon categories">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>24</h3>
+                        <p>Categories</p>
+                        <span class="stat-change positive">+3</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon value">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>৳45,67,890</h3>
+                        <p>Catalog Value</p>
+                        <span class="stat-change positive">+18.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon low-stock">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>23</h3>
+                        <p>Low Stock Items</p>
+                        <span class="stat-change negative">+5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-category="all">All Products</button>
+                    <button class="filter-tab" data-category="electronics">Electronics</button>
+                    <button class="filter-tab" data-category="fashion">Fashion</button>
+                    <button class="filter-tab" data-category="home">Home & Living</button>
+                    <button class="filter-tab" data-category="sports">Sports</button>
+                    <button class="filter-tab" data-category="health">Health & Beauty</button>
+                </div>
+                <div class="filter-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search products..." id="productCatalogSearch">
+                    </div>
+                    <select id="sortProducts">
+                        <option value="name">Sort by Name</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="stock">Stock Level</option>
+                        <option value="rating">Customer Rating</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Enhanced Product Catalog -->
+            <div class="product-catalog-grid" id="productCatalogGrid">
+                <div class="product-card featured">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300&h=300&fit=crop" alt="Samsung Galaxy A54 5G">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('samsung-a54')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('samsung-a54')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Electronics</div>
+                        <h4>Samsung Galaxy A54 5G</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(247 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳48,000</span>
+                            <span class="original-price">৳52,000</span>
+                            <span class="discount">8% OFF</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock in-stock">
+                                <i class="fas fa-check-circle"></i>
+                                25 in stock
+                            </span>
+                            <span class="product-sku">SKU: SGA-054</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('samsung-a54')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('samsung-a54')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('samsung-a54')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300&h=300&fit=crop" alt="Nike Air Max 270">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('nike-air-max')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('nike-air-max')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Fashion</div>
+                        <h4>Nike Air Max 270</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(189 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳12,500</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock low-stock">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                8 in stock
+                            </span>
+                            <span class="product-sku">SKU: NAM-270</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('nike-air-max')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('nike-air-max')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('nike-air-max')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-badge new">New Arrival</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop" alt="Apple Watch Series 9">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('apple-watch-9')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('apple-watch-9')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Electronics</div>
+                        <h4>Apple Watch Series 9</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(456 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳65,000</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock in-stock">
+                                <i class="fas fa-check-circle"></i>
+                                45 in stock
+                            </span>
+                            <span class="product-sku">SKU: AWS-9</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('apple-watch-9')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('apple-watch-9')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('apple-watch-9')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop" alt="Sony WH-1000XM5">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('sony-headphones')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('sony-headphones')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Electronics</div>
+                        <h4>Sony WH-1000XM5 Headphones</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(312 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳38,500</span>
+                            <span class="original-price">৳42,000</span>
+                            <span class="discount">8% OFF</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock in-stock">
+                                <i class="fas fa-check-circle"></i>
+                                67 in stock
+                            </span>
+                            <span class="product-sku">SKU: SWH-1000</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('sony-headphones')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('sony-headphones')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('sony-headphones')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=300&h=300&fit=crop" alt="Adidas Ultraboost 22">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('adidas-ultraboost')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('adidas-ultraboost')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Sports</div>
+                        <h4>Adidas Ultraboost 22</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(203 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳18,500</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock in-stock">
+                                <i class="fas fa-check-circle"></i>
+                                34 in stock
+                            </span>
+                            <span class="product-sku">SKU: AUB-22</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('adidas-ultraboost')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('adidas-ultraboost')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('adidas-ultraboost')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=300&h=300&fit=crop" alt="Levi's 501 Original Jeans">
+                        <div class="product-overlay">
+                            <button class="overlay-btn" onclick="quickViewProduct('levis-jeans')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="overlay-btn" onclick="editProduct('levis-jeans')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">Fashion</div>
+                        <h4>Levi's 501 Original Jeans</h4>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(567 reviews)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="current-price">৳8,500</span>
+                            <span class="original-price">৳9,500</span>
+                            <span class="discount">11% OFF</span>
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-stock in-stock">
+                                <i class="fas fa-check-circle"></i>
+                                89 in stock
+                            </span>
+                            <span class="product-sku">SKU: LV-501</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-sm btn-primary" onclick="editProduct('levis-jeans')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-secondary" onclick="duplicateProduct('levis-jeans')">
+                                <i class="fas fa-copy"></i> Duplicate
+                            </button>
+                            <button class="btn btn-sm btn-outline" onclick="viewProductAnalytics('levis-jeans')">
+                                <i class="fas fa-chart-bar"></i> Analytics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-section">
+                <button class="btn btn-outline load-more-btn" onclick="loadMoreProducts()">
+                    <i class="fas fa-plus"></i>
+                    Load More Products
+                </button>
+                <p class="showing-text">Showing 6 of 2,847 products</p>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="content-section">
+            <div class="section-header">
+                <h1>Analytics & Reports</h1>
+                <div class="section-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Export Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3>Sales Performance</h3>
+                    <div class="chart-placeholder">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+                <div class="analytics-card">
+                    <h3>Top Products</h3>
+                    <div class="top-products-list">
+                        <div class="top-product-item">
+                            <span class="rank">1</span>
+                            <span class="product-name">Wireless Headphones</span>
+                            <span class="sales-count">234 sold</span>
+                        </div>
+                        <div class="top-product-item">
+                            <span class="rank">2</span>
+                            <span class="product-name">Smart Watch</span>
+                            <span class="sales-count">189 sold</span>
+                        </div>
+                        <div class="top-product-item">
+                            <span class="rank">3</span>
+                            <span class="product-name">Running Shoes</span>
+                            <span class="sales-count">156 sold</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Modal for Add/Edit Product -->
+    <div id="productModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Product</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form class="modal-form" id="productForm">
+                <div class="form-grid">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h3>Basic Information</h3>
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" required placeholder="Enter product name">
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="productSKU">SKU *</label>
+                            <input type="text" id="productSKU" required placeholder="e.g., WH-001">
+                            <span class="error-message" id="skuError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Description</label>
+                            <textarea id="productDescription" rows="3" placeholder="Product description..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing & Fashion</option>
+                                <option value="home">Home & Garden</option>
+                                <option value="sports">Sports & Fitness</option>
+                                <option value="books">Books & Media</option>
+                                <option value="automotive">Automotive</option>
+                                <option value="health">Health & Beauty</option>
+                                <option value="toys">Toys & Games</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productBrand">Brand</label>
+                            <input type="text" id="productBrand" placeholder="Product brand">
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Inventory -->
+                    <div class="form-section">
+                        <h3>Pricing & Inventory</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productCostPrice">Cost Price *</label>
+                                <input type="number" id="productCostPrice" step="0.01" required placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="productSellPrice">Selling Price *</label>
+                                <input type="number" id="productSellPrice" step="0.01" required placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profitMargin">Profit Margin</label>
+                            <input type="text" id="profitMargin" readonly placeholder="Calculated automatically">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productStock">Current Stock *</label>
+                                <input type="number" id="productStock" required placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="minStock">Minimum Stock Alert</label>
+                                <input type="number" id="minStock" placeholder="5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="productStatus">Status</label>
+                            <select id="productStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="discontinued">Discontinued</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Product Images -->
+                    <div class="form-section full-width">
+                        <h3>Product Images</h3>
+                        <div class="image-upload-area">
+                            <div class="image-preview" id="imagePreview">
+                                <i class="fas fa-image"></i>
+                                <p>Click to upload or drag and drop</p>
+                            </div>
+                            <input type="file" id="productImage" accept="image/*" multiple>
+                            <div class="image-gallery" id="imageGallery"></div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Details -->
+                    <div class="form-section full-width">
+                        <h3>Additional Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productWeight">Weight (kg)</label>
+                                <input type="number" id="productWeight" step="0.01" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="productDimensions">Dimensions (L×W×H)</label>
+                                <input type="text" id="productDimensions" placeholder="e.g., 10×5×3 cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="productBarcode">Barcode</label>
+                                <input type="text" id="productBarcode" placeholder="Product barcode">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productSupplier">Supplier</label>
+                                <input type="text" id="productSupplier" placeholder="Supplier name">
+                            </div>
+                            <div class="form-group">
+                                <label for="productWarranty">Warranty Period</label>
+                                <input type="text" id="productWarranty" placeholder="e.g., 1 year">
+                            </div>
+                            <div class="form-group">
+                                <label for="productLocation">Storage Location</label>
+                                <input type="text" id="productLocation" placeholder="e.g., Warehouse A-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="button" class="btn btn-outline" id="saveAsDraftBtn">Save as Draft</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product View Modal -->
+    <div id="viewProductModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2>Product Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="product-view-content" id="productViewContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="closeViewBtn">Close</button>
+                <button class="btn btn-primary" id="editFromViewBtn">Edit Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Delete Confirmation Modal -->
+    <div id="bulkDeleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Bulk Delete</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span id="deleteCount">0</span> selected products?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelBulkDelete">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmBulkDelete">Delete Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Sale Modal -->
+    <div id="newSaleModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus-circle"></i> Create New Sale</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="sale-form-container">
+                <div class="sale-form-left">
+                    <div class="customer-section">
+                        <h3><i class="fas fa-user"></i> Customer Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerName">Customer Name *</label>
+                                <input type="text" id="customerName" required placeholder="Enter customer name">
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number</label>
+                                <input type="tel" id="customerPhone" placeholder="+880 1XXX-XXXXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerEmail">Email Address</label>
+                            <input type="email" id="customerEmail" placeholder="customer@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress">Delivery Address</label>
+                            <textarea id="customerAddress" rows="2" placeholder="Enter delivery address..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="product-selection">
+                        <h3><i class="fas fa-shopping-cart"></i> Add Products</h3>
+                        <div class="product-search">
+                            <input type="text" id="productSearchSale" placeholder="Search products by name or SKU...">
+                            <button type="button" id="addProductToSale" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                        <div class="product-suggestions" id="productSuggestions"></div>
+                    </div>
+                </div>
+
+                <div class="sale-form-right">
+                    <div class="sale-summary">
+                        <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+                        <div class="sale-items" id="saleItems">
+                            <div class="empty-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>No items added yet</p>
+                            </div>
+                        </div>
+                        
+                        <div class="sale-totals">
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span id="saleSubtotal">৳0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Discount:</span>
+                                <div class="discount-input">
+                                    <input type="number" id="discountAmount" placeholder="0" min="0">
+                                    <select id="discountType">
+                                        <option value="amount">৳</option>
+                                        <option value="percentage">%</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax (5%):</span>
+                                <span id="saleTax">৳0</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Grand Total:</span>
+                                <span id="saleGrandTotal">৳0</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-section">
+                            <h4><i class="fas fa-credit-card"></i> Payment Method</h4>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="cash" checked>
+                                    <span class="payment-icon"><i class="fas fa-money-bill-wave"></i></span>
+                                    <span>Cash</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="card">
+                                    <span class="payment-icon"><i class="fas fa-credit-card"></i></span>
+                                    <span>Card</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="bkash">
+                                    <span class="payment-icon"><i class="fas fa-mobile-alt"></i></span>
+                                    <span>bKash</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="nagad">
+                                    <span class="payment-icon"><i class="fas fa-mobile-alt"></i></span>
+                                    <span>Nagad</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelSale">Cancel</button>
+                <button type="button" class="btn btn-outline" id="saveDraftSale">Save Draft</button>
+                <button type="button" class="btn btn-success" id="completeSale">
+                    <i class="fas fa-check"></i> Complete Sale
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="modal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-invoice"></i> Order Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="order-details-content" id="orderDetailsContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="closeOrderDetails">Close</button>
+                <button class="btn btn-primary" id="printOrderReceipt">
+                    <i class="fas fa-print"></i> Print Receipt
+                </button>
+                <button class="btn btn-outline" id="updateOrderStatus">
+                    <i class="fas fa-edit"></i> Update Status
+                </button>
+                <button class="btn btn-danger" onclick="cancelOrder()">
+                    <i class="fas fa-times"></i> Cancel Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Order Status Modal -->
+    <div class="modal" id="updateOrderStatusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Order Status</h2>
+                <button class="close-btn" onclick="closeModal('updateOrderStatusModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="updateStatusForm">
+                    <div class="form-group">
+                        <label for="newOrderStatus">New Status:</label>
+                        <select id="newOrderStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipping">Shipping</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="statusNotes">Notes (Optional):</label>
+                        <textarea id="statusNotes" rows="3" placeholder="Add any notes about this status update..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="notifyCustomer" checked>
+                            Send notification to customer
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('updateOrderStatusModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="updateOrderStatus()">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Update Status Modal -->
+    <div class="modal" id="bulkUpdateStatusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Bulk Update Order Status</h2>
+                <button class="close-btn" onclick="closeModal('bulkUpdateStatusModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Update status for <span id="bulkUpdateCount">0</span> selected orders:</p>
+                <form id="bulkUpdateForm">
+                    <div class="form-group">
+                        <label for="bulkNewStatus">New Status:</label>
+                        <select id="bulkNewStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipping">Shipping</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bulkStatusNotes">Notes (Optional):</label>
+                        <textarea id="bulkStatusNotes" rows="3" placeholder="Add notes for all selected orders..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="bulkNotifyCustomers" checked>
+                            Send notifications to all customers
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('bulkUpdateStatusModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmBulkStatusUpdate()">Update All</button>
+            </div>
+        </div>
+    </div>
+
+    </div> <!-- End Main App -->
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Add New Product</h2>
+                <button class="close-btn" onclick="closeModal('addProductModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" required placeholder="Enter product name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productSKU">SKU *</label>
+                            <input type="text" id="productSKU" required placeholder="e.g., ABC-123">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="home">Home & Living</option>
+                                <option value="sports">Sports</option>
+                                <option value="health">Health & Beauty</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productBrand">Brand</label>
+                            <input type="text" id="productBrand" placeholder="Enter brand name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCostPrice">Cost Price (৳) *</label>
+                            <input type="number" id="productCostPrice" required min="0" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="productSellPrice">Sell Price (৳) *</label>
+                            <input type="number" id="productSellPrice" required min="0" step="0.01" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productStock">Stock Quantity *</label>
+                            <input type="number" id="productStock" required min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="productMinStock">Minimum Stock Alert</label>
+                            <input type="number" id="productMinStock" min="0" placeholder="5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" rows="3" placeholder="Enter product description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImages">Product Images</label>
+                        <input type="url" id="productImages" placeholder="Enter image URL">
+                        <small>Enter a valid image URL (e.g., https://example.com/image.jpg)</small>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productWeight">Weight (kg)</label>
+                            <input type="number" id="productWeight" min="0" step="0.01" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="productDimensions">Dimensions (L×W×H cm)</label>
+                            <input type="text" id="productDimensions" placeholder="e.g., 20×15×5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productFeatures">Key Features (one per line)</label>
+                        <textarea id="productFeatures" rows="3" placeholder="Feature 1&#10;Feature 2&#10;Feature 3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addProductModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveNewProduct()">Add Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal" id="editProductModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Edit Product</h2>
+                <button class="close-btn" onclick="closeModal('editProductModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductName">Product Name *</label>
+                            <input type="text" id="editProductName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductSKU">SKU *</label>
+                            <input type="text" id="editProductSKU" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductCategory">Category *</label>
+                            <select id="editProductCategory" required>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="home">Home & Living</option>
+                                <option value="sports">Sports</option>
+                                <option value="health">Health & Beauty</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductBrand">Brand</label>
+                            <input type="text" id="editProductBrand">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductCostPrice">Cost Price (৳) *</label>
+                            <input type="number" id="editProductCostPrice" required min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductSellPrice">Sell Price (৳) *</label>
+                            <input type="number" id="editProductSellPrice" required min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editProductStock">Stock Quantity *</label>
+                            <input type="number" id="editProductStock" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="editProductMinStock">Minimum Stock Alert</label>
+                            <input type="number" id="editProductMinStock" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductDescription">Description</label>
+                        <textarea id="editProductDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductImages">Product Images</label>
+                        <input type="url" id="editProductImages">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProductFeatures">Key Features (one per line)</label>
+                        <textarea id="editProductFeatures" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('editProductModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="updateProduct()">Update Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Analytics Modal -->
+    <div class="modal" id="productAnalyticsModal">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-bar"></i> Product Analytics</h2>
+                <button class="close-btn" onclick="closeModal('productAnalyticsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="analyticsContent">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h4>Sales Performance</h4>
+                            <div class="metric">
+                                <span class="metric-value" id="analyticsSales">0</span>
+                                <span class="metric-label">Units Sold</span>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Revenue Generated</h4>
+                            <div class="metric">
+                                <span class="metric-value" id="analyticsRevenue">৳0</span>
+                                <span class="metric-label">Total Revenue</span>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Profit Margin</h4>
+                            <div class="metric">
+                                <span class="metric-value" id="analyticsProfit">0%</span>
+                                <span class="metric-label">Profit Margin</span>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>Stock Status</h4>
+                            <div class="metric">
+                                <span class="metric-value" id="analyticsStock">0</span>
+                                <span class="metric-label">Units in Stock</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('productAnalyticsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="showSection.js"></script>
+    <script src="script-clean.js"></script>
+</body>
+</html>
